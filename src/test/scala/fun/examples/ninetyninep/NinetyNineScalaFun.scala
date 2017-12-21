@@ -52,4 +52,22 @@ class NinetyNineScalaFun extends FunSuite{
     assert(true == isPalindrome(List(1,2,3,2,1)))
   }
 
+  // Flatten a nested list structure
+  test("P07"){
+
+    def flatten(list:List[Any]):List[Any] =  {
+      list.map{
+        elem =>
+          elem match {
+            case l:List[Any] => flatten(l)
+            case n => List(n)
+          }
+      }.flatten
+    }
+
+    assert(List(1, 1, 2, 3, 5, 8) == flatten(List(List(1, 1), 2, List(3, List(5, 8)))))
+
+
+  }
+
 }
