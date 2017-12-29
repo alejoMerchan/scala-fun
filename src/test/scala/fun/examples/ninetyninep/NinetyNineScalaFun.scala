@@ -70,4 +70,23 @@ class NinetyNineScalaFun extends FunSuite{
 
   }
 
+  //Eliminate consecutive duplicates of list elements.
+  test("P08"){
+    def compress(list:List[Symbol]):List[Symbol]   = {
+      val listCompress = list.last :: List.empty[Symbol]
+      (list foldRight  listCompress) {
+        (a,b) =>
+          if(b.head.equals(a)) b
+        else a::b
+      }
+    }
+    assert(List('a, 'b, 'c, 'a, 'd, 'e) == compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
+
+  }
+
+  //Pack consecutive duplicates of list elements into sublists.
+  test("P09"){
+
+  }
+
 }
