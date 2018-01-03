@@ -87,6 +87,15 @@ class NinetyNineScalaFun extends FunSuite{
   //Pack consecutive duplicates of list elements into sublists.
   test("P09"){
 
+    def aux(list:List[Symbol], listAcum:List[List[Symbol]]): List[List[Symbol]] =  {
+      list.span( _ equals(list.head)) match {
+        case (list1,list2) => if(list2.isEmpty) list1::listAcum else aux(list2,list1::listAcum)
+      }
+    }
+    def pack(list:List[Symbol]):List[List[Symbol]] = {
+      aux(list,List.empty[List[Symbol]]).reverse
+    }
+    assert(List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)) == pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
   }
 
 }
