@@ -98,4 +98,24 @@ class NinetyNineScalaFun extends FunSuite{
     assert(List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e)) == pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
   }
 
+  //Run-length encoding of a list.
+  test("P10"){
+
+    //Por Cuestion de comodidad se copia los mismos metodos en lugar de tener una clase que los implemente.
+
+    def aux(list:List[Symbol], listAcum:List[List[Symbol]]): List[List[Symbol]] =  {
+      list.span( _ equals(list.head)) match {
+        case (list1,list2) => if(list2.isEmpty) list1::listAcum else aux(list2,list1::listAcum)
+      }
+    }
+    def pack(list:List[Symbol]):List[List[Symbol]] = {
+      aux(list,List.empty[List[Symbol]]).reverse
+    }
+
+    def encode(list:List[Symbol]): List[(Int,Symbol)] = pack(list).map(l => (l.size, l.head))
+
+    assert(List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)) == encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
+
+  }
+
 }
