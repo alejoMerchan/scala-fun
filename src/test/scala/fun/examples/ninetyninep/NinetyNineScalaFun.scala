@@ -118,4 +118,34 @@ class NinetyNineScalaFun extends FunSuite{
 
   }
 
+  //Modified run-length encoding.
+  test("P11"){
+
+    def aux(list:List[Symbol], listAcum:List[List[Symbol]]): List[List[Symbol]] =  {
+      list.span( _ equals(list.head)) match {
+        case (list1,list2) => if(list2.isEmpty) list1::listAcum else aux(list2,list1::listAcum)
+      }
+    }
+    def pack(list:List[Symbol]):List[List[Symbol]] = {
+      aux(list,List.empty[List[Symbol]]).reverse
+    }
+
+    def encodeModified(list:List[Symbol]): List[Any] = pack(list).map(l => if(l.size > 1)(l.size, l.head) else l.head)
+
+    println(encodeModified(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
+
+  }
+
+  //Decode a run-length encoded list.
+  test("P12"){
+
+    def decode(list:List[(Int,Symbol)]):List[Symbol] = {
+      list.map{
+        x => List.fill(x._1)(x._2)
+      }.flatten
+    }
+
+    assert(decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e))) == List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+  }
+
 }
