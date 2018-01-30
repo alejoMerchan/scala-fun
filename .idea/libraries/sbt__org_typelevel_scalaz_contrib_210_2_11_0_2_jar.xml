@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.typelevel:scalaz-contrib-210_2.11:0.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.typelevel/scalaz-contrib-210_2.11/jars/scalaz-contrib-210_2.11-0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.typelevel/scalaz-contrib-210_2.11/srcs/scalaz-contrib-210_2.11-0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
