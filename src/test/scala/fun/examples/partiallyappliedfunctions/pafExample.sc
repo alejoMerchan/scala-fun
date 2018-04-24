@@ -15,3 +15,5 @@ wrap("<div>")(hello)("</div>")
 val otherWrap = wrap("<pre>")(_:String)("</pre>")
 
 otherWrap("testing")
+
+val cambio = ""
