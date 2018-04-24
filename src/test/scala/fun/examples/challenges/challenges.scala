@@ -5,8 +5,9 @@ import org.scalatest.FunSuite
 
 class challenges extends FunSuite {
 
-  test("654"){
-    println(' '.isWhitespace)
+  test("654") {
+    def isDigit(x:String)=  x.matches("[-+]?\\d+(\\.\\d+)?")
+    println(isDigit("3"))
   }
 
   test("reduce by pairs") {
@@ -32,43 +33,56 @@ class challenges extends FunSuite {
     println(reduceByPairs(""))
   }
 
-  test("") {
+  test("Expresion Evaluator") {
 
-    def operation(a: Int, b: Int, operation: Char): Char = {
+    def operation(a: Double, b: Double, operation: String): String = {
       operation match {
-        case '+' => (a + b).toString.charAt(0)
-        case '-' => (a - b).toString.charAt(0)
-        case '*' => (a * b).toString.charAt(0)
-        case '/' => (a / b).toString.charAt(0)
+        case "+" => (a + b).toString
+        case "-" => (a - b).toString
+        case "*" => (a * b).toString
+        case "/" => (a / b).toString
       }
-    }
 
-    def metodoAux(listNums: List[Char], signo: Char): List[Char] = {
+    }
+    def evaluateAux(listNums: List[String], signo: String): List[String] = {
       listNums match {
         case a :: rest =>
-          val y = (operation( rest.head.asDigit, a.asDigit , signo) :: rest.tail)
+          val y = (operation(rest.head.toDouble, a.toDouble, signo) :: rest.tail)
           y
       }
     }
-    def operando(operacion:String):String  = {
-      val aux = List.empty[Char]
-      val y = (operacion foldLeft aux) {
+
+    def isNumber(x:String)=  x.matches("[-+]?\\d+(\\.\\d+)?")
+
+    def evaluate(string: String): Double = {
+      val listString = string.split(" ").toList
+      val aux = List.empty[String]
+      val y = (listString foldLeft aux) {
         (a, b) =>
-          if (b.isDigit) {
+          if (isNumber(b)) {
             b :: a
           } else {
-            if(!b.isWhitespace)
-            metodoAux(a, b)
-            else{
-              a
-            }
+            evaluateAux(a, b)
           }
       }
-
-      y.head.toString
+     y.head.toDouble
     }
 
-    println("resultado: " + operando("5 1 2 + 4 * + 3 -"))
+
+    assert(evaluate("2 5 -")=== -3 )
+
+    assert(evaluate("3 4 5")=== 5 )
+
+    assert(evaluate("9 2 /")=== 4.5 )
+
+    assert(evaluate("10000 2345.67 +")=== 12345.67 )
+
+    assert(evaluate("3 2 1 - *")=== 3 )
+
+    assert(evaluate("5 1 2 + 4 * + 3 -")=== 14 )
+
+    assert(evaluate("7 4 5 + * 3 - 10 /")=== 6 )
+
 
 
   }
