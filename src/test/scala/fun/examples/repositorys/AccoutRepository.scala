@@ -9,8 +9,7 @@ import scala.util.Try
   * Repository specialized to  handle Accouts aggregates
   */
 
-case class Account(id:Int,name:String)
-case class Balance(balance:Int)
+
 
 trait AccoutRepository extends Repository[Account,String]{
 
